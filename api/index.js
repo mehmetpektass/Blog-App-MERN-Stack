@@ -1,8 +1,20 @@
 import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 const app = express();
-const port = 4000;
+const port = 3000;
 
-app.listen(port , () => {
-    console.log(`Server is Runing on Port ${port}`)
+mongoose.connect(
+  process.env.MONGO_URL
+).then( () => {
+    console.log('Database is connected')
+}).catch((err) => {
+    console.log(err)
 })
+
+app.listen(port, () => {
+  console.log(`Server is Runing on Port ${port}`);
+});
