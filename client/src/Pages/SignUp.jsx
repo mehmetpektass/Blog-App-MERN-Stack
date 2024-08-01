@@ -81,7 +81,20 @@ const SignUp = () => {
                 onChange={handleChange}
               />
             </div>
-            
+            <Button
+              gradientDuoTone="purpleToBlue"
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Spinner />
+                  <span>Loading...</span>
+                </>
+              ) : (
+                "Sign Up"
+              )}
+            </Button>
           </form>
           <div className="flex gap-2 text-sm mt-3">
             <span>Have an Account?</span>
