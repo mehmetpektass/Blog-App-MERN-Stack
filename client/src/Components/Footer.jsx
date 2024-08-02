@@ -1,7 +1,7 @@
 import { Footer } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import {BsFacebook , BsInstagram , BsTwitter , BsGithub , BsLinkedin} from 'react-icons/bs'
+import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsLinkedin } from 'react-icons/bs';
 
 const FooterCom = () => {
   return (
@@ -52,20 +52,20 @@ const FooterCom = () => {
             </div>
           </div>
         </div>
-        <Footer.Divider/>
+        <Footer.Divider />
         <div className="w-full sm:flex sm:items-center sm:justify-center">
-            <Footer.Copyright
-                href="#"
-                by="Mehmet's Blog"
-                year={new Date().getFullYear}
-            />
-            <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center ml-3">
-                <Footer.Icon href="#" icon={BsFacebook} />
-                <Footer.Icon href="#" icon={BsInstagram} />
-                <Footer.Icon href="#" icon={BsTwitter} />
-                <Footer.Icon href="#" icon={BsGithub} />
-                <Footer.Icon href="#" icon={BsLinkedin} />
-            </div>
+          <Footer.Copyright
+            href="#"
+            by="Mehmet's Blog"
+            year={new Date().getFullYear()}
+          />
+          <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center ml-3">
+            <Footer.Icon href="#" icon={BsFacebook} />
+            <Footer.Icon href="#" icon={BsInstagram} />
+            <Footer.Icon href="#" icon={BsTwitter} />
+            <Footer.Icon href="#" icon={BsGithub} />
+            <Footer.Icon href="#" icon={BsLinkedin} />
+          </div>
         </div>
       </div>
     </Footer>
