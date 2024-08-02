@@ -18,6 +18,27 @@ const FooterCom = () => {
               Blog
             </Link>
           </div>
+          <div className="grid grid-cols-2 gap-3 sm: mt-4 sm:grid-cols-3 sm: gap-6">
+            <div>
+                <Footer.Title title="About" />
+                <Footer.LinkGroup>
+                    <Footer.Link 
+                    href="https://www.linkedin.com/in/pektasmehmet/"
+                    target='blank'
+                    rel="noopener noreferrer"
+                    >
+                        Linkedin
+                    </Footer.Link>
+                    <Footer.Link 
+                    href="https://github.com/mehmetpektass"
+                    target='blank'
+                    rel="noopener noreferrer"
+                    >
+                        GitHub
+                    </Footer.Link>
+                </Footer.LinkGroup>
+            </div>
+          </div>
         </div>
       </div>
     </Footer>
