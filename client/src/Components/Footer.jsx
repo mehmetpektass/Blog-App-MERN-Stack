@@ -59,7 +59,13 @@ const FooterCom = () => {
                 by="Mehmet's Blog"
                 year={new Date().getFullYear}
             />
-           
+            <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center ml-3">
+                <Footer.Icon href="#" icon={BsFacebook} />
+                <Footer.Icon href="#" icon={BsInstagram} />
+                <Footer.Icon href="#" icon={BsTwitter} />
+                <Footer.Icon href="#" icon={BsGithub} />
+                <Footer.Icon href="#" icon={BsLinkedin} />
+            </div>
         </div>
       </div>
     </Footer>
