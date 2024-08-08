@@ -39,7 +39,7 @@ const FooterCom = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  LinkedIn
+                  Linkedin
                 </Footer.Link>
                 <Footer.Link
                   href="https://github.com/mehmetpektass"

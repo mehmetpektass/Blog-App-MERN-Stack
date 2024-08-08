@@ -3,11 +3,15 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { RiSearchLine } from "react-icons/ri";
 import { FaMoon } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { FiSun } from "react-icons/fi";
+import { useSelector , useDispatch} from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlice.js";
 
 const Header = () => {
   const path = useLocation().pathname;
+  const disptch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme)
   return (
     <Navbar className="border-b-2">
       <Link
@@ -31,8 +35,8 @@ const Header = () => {
         <RiSearchLine />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
-          <FaMoon />
+        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={() => disptch(toggleTheme())}>
+        <FaMoon/>
         </Button>
         {currentUser ? (
           <Dropdown
