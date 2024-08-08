@@ -8,22 +8,24 @@ import Dashboard from "./Pages/Dashboard";
 import Projects from "./Pages/Projects";
 import Header from "./Components/Header";
 import FooterCom from "./Components/Footer";
+import PrivateRoute from "./Components/PrivateRoute";
 
 const App = () => {
   return (
     <>
-      
       <BrowserRouter>
-      <Header />
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="sign-in" element={<SignIn />} />
           <Route path="sign-up" element={<SignUp />} />
-          <Route path="dashboard" element={<Dashboard />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="dashboard" element={<Dashboard />} />
+          </Route>
           <Route path="projects" element={<Projects />} />
         </Routes>
-        <FooterCom/>
+        <FooterCom />
       </BrowserRouter>
     </>
   );
