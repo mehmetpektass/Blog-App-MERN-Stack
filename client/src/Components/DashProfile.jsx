@@ -63,7 +63,6 @@ const DashProfile = () => {
     );
   };
 
-  console.log(imageFileUploadProgress);
 
   return (
     <div className="mx-w-lg mx-auto p-3 w-full">
