@@ -5,6 +5,6 @@ import { verifyUser } from '../utils/verifyUser.js';
 const userRouter = express.Router();
 
 userRouter.get('/test' ,test)
-userRouter.pust('/update/:userId' , verifyUser , updateUser)
+userRouter.put('/update/:userId' , verifyUser , updateUser)
 
 export default userRouter;
