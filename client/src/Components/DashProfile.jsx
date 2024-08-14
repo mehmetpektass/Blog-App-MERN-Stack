@@ -17,6 +17,7 @@ const DashProfile = () => {
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
+  const [formData, setFormData] = useState({});
 
   const filePickerRef = useRef();
   const handleImageChange = (e) => {
@@ -33,8 +34,12 @@ const DashProfile = () => {
     }
   }, [imageFile]);
 
+  const handleChange = (e) => {
+    setFormData({...formData , [e.target.id]: e.target.value})
+  }
+console.log(formData)
   const uploadImage = async () => {
-    setImageFileUploadError(null)
+    setImageFileUploadError(null);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imageFile.name;
     const storageRef = ref(storage, fileName);
@@ -51,18 +56,17 @@ const DashProfile = () => {
           "Could not Upload Image (File Must Be less then 2MB)"
         );
         setImageFileUploadProgress(null);
-        setImageFile(null)
-        setImageFileUrl(null)
+        setImageFile(null);
+        setImageFileUrl(null);
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageFileUrl(downloadURL);
-          
+          setFormData({...formData , profilePicture:downloadURL})
         });
       }
     );
   };
-
 
   return (
     <div className="mx-w-lg mx-auto p-3 w-full">
@@ -115,13 +119,19 @@ const DashProfile = () => {
           id="username"
           placeholder="username"
           defaultValue={currentUser.username}
+          onChange={handleChange}
         />
         <TextInput
           id="email"
           placeholder="email"
           defaultValue={currentUser.email}
+          onChange={handleChange}
         />
-        <TextInput id="password" placeholder="************" />
+        <TextInput
+          id="password"
+          placeholder="************"
+          onChange={handleChange}
+        />
         <Button type="submit" gradientDuoTone="purpleToBlue" outline>
           Update
         </Button>
