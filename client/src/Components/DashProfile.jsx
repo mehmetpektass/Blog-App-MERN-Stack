@@ -37,7 +37,7 @@ const DashProfile = () => {
   const handleChange = (e) => {
     setFormData({...formData , [e.target.id]: e.target.value})
   }
-console.log(formData)
+
   const uploadImage = async () => {
     setImageFileUploadError(null);
     const storage = getStorage(app);
@@ -68,10 +68,23 @@ console.log(formData)
     );
   };
 
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (object.keys(formData).length === 0) {
+      return
+    }
+    try {
+      
+    } catch (error) {
+      
+    }
+  }
+
   return (
     <div className="mx-w-lg mx-auto p-3 w-full">
       <h1 className="text-center font-semibold text-3xl">Profile</h1>
-      <form className="flex flex-col gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="file"
           accept="image/*"
