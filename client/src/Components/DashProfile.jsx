@@ -1,4 +1,4 @@
-import { Alert, Button, TextInput } from "flowbite-react";
+import { Alert, Button, Modal, TextInput } from "flowbite-react";
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
@@ -11,6 +11,7 @@ import { app } from "../firebase.js";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useDispatch } from "react-redux";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 import {
   updateStart,
   updateSuccess,
@@ -24,8 +25,9 @@ const DashProfile = () => {
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
   const [imageFileUplodaing, setImageFileUploading] = useState(false);
-  const [updateUserSuccess , setUpdateUserSuccess] = useState(null);
-  const [updateUserError , setUpdateUserError] = useState(null)
+  const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
+  const [updateUserError, setUpdateUserError] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
   const dispatch = useDispatch();
@@ -49,7 +51,7 @@ const DashProfile = () => {
   };
 
   const uploadImage = async () => {
-    setImageFileUploading(true)
+    setImageFileUploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
     const fileName = new Date().getTime() + imageFile.name;
@@ -86,11 +88,11 @@ const DashProfile = () => {
     setUpdateUserError(null);
     e.preventDefault();
     if (Object.keys(formData).length === 0) {
-      setUpdateUserError('No changes made')
+      setUpdateUserError("No changes made");
       return;
     }
     if (imageFileUplodaing) {
-      setUpdateUserError('Please wait for image to upload')
+      setUpdateUserError("Please wait for image to upload");
       return;
     }
 
@@ -113,9 +115,13 @@ const DashProfile = () => {
       }
     } catch (error) {
       dispatch(updateFailure(error.message));
-      setUpdateUserError(error.message)
+      setUpdateUserError(error.message);
     }
   };
+
+  const handleDeleteUser = async () => {
+
+  }
 
   return (
     <div className="mx-w-lg mx-auto p-3 w-full">
@@ -186,19 +192,45 @@ const DashProfile = () => {
         </Button>
       </form>
       <div className="text-red-500 flex justify-between mt-4">
-        <span className="cursor-pointer">Delete Account</span>
+        <span onClick={() => setShowModal(true)} className="cursor-pointer">
+          Delete Account
+        </span>
         <span className="cursor-pointer mr-3">Sign Out</span>
       </div>
       {updateUserSuccess && (
-        <Alert color='success' className="mt-5">
+        <Alert color="success" className="mt-5">
           {updateUserSuccess}
         </Alert>
       )}
       {updateUserError && (
-        <Alert color='failure' className="mt-5">
+        <Alert color="failure" className="mt-5">
           {updateUserError}
         </Alert>
       )}
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="w-14 h-14 mx-auto text-gray-500 dark:text-gray-200 mb-4" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-200 ">
+              Are you sure you want to delete your account?
+            </h3>
+            <div className="flex justify-center gap-24">
+              <Button color='failure' onClick={handleDeleteUser}>
+                Yes, I'm Sure
+              </Button>
+              <Button color='gray' onClick={() => setShowModal(false)}>
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
