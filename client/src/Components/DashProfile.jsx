@@ -16,10 +16,13 @@ import {
   updateStart,
   updateSuccess,
   updateFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  deleteUserFailure,
 } from "../redux/user/userSlice.js";
 
 const DashProfile = () => {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser} = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -27,6 +30,8 @@ const DashProfile = () => {
   const [imageFileUplodaing, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
+  const [deleteUserSuccess , setDeleteUserSuccess] = useState(null);
+  const [deleteUserError, setDeleteUserError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
@@ -84,6 +89,8 @@ const DashProfile = () => {
   };
 
   const handleSubmit = async (e) => {
+    setDeleteUserError(null)
+    setDeleteUserSuccess(null)
     setUpdateUserSuccess(null);
     setUpdateUserError(null);
     e.preventDefault();
@@ -120,7 +127,26 @@ const DashProfile = () => {
   };
 
   const handleDeleteUser = async () => {
-
+    setDeleteUserError(null)
+    setDeleteUserSuccess(null)
+    setUpdateUserError(null);
+    setUpdateUserSuccess(null)
+    setShowModal(false)
+    try {
+      dispatch(deleteUserStart());
+      const res = fetch(`api/user/delete/${currentUser._id}` , {
+        method:'DELETE'
+      })
+      const data = await res.json();
+      if (!res.ok) {
+        dispatch(deleteUserFailure(data.message))
+      }
+      dispatch(deleteUserSuccess(data))
+      setDeleteUserSuccess('User deleted successfully')
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message))
+      setDeleteUserError("User couldn't deleted")
+    }
   }
 
   return (
@@ -205,6 +231,16 @@ const DashProfile = () => {
       {updateUserError && (
         <Alert color="failure" className="mt-5">
           {updateUserError}
+        </Alert>
+      )}
+      {deleteUserSuccess && (
+        <Alert color="success" className="mt-5">
+          {deleteUserSuccess}
+        </Alert>
+      )}
+      {deleteUserError && (
+        <Alert color="failure" className="mt-5">
+          {deleteUserError}
         </Alert>
       )}
       <Modal

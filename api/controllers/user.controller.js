@@ -17,7 +17,7 @@ export const updateUser = async (req, res ,next) => {
     req.body.password = bcryptjs.hashSync(req.body.password, 10);
   }
   if (req.body.username) {
-    if (req.body.username.length < 7 || req.body.username.length > 20 || !req.body.username) {
+    if (!req.body.username || req.body.username.length < 7 || req.body.username.length > 20) {
       return next(
         errorHandler(400, "Username must be between 7 and 20 characters")
       );
@@ -55,13 +55,14 @@ export const updateUser = async (req, res ,next) => {
     const { password, ...rest } = updatedUser._doc;
     res.status(200).json(rest);
   } catch (error) {
-    next(error);
+    next(errorHandler(401 , 'User not found'));
+    
   }
 };
 
 export const deleteUser = async (req , res , next) => {
     if (req.user.id !== req.params.userId) {
-        return next(errorHandler(403, "You are not allowed to update this user"));
+        return next(errorHandler(403, "You are not allowed to delete this user"));
     }
 
     try {
