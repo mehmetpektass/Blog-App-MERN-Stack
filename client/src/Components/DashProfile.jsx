@@ -27,10 +27,10 @@ const DashProfile = () => {
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
   const [imageFileUploadError, setImageFileUploadError] = useState(null);
-  const [imageFileUplodaing, setImageFileUploading] = useState(false);
+  const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
-  const [deleteUserSuccess , setDeleteUserSuccess] = useState(null);
+  const [deleteSuccess , setDeleteSuccess] = useState(null);
   const [deleteUserError, setDeleteUserError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
@@ -98,7 +98,7 @@ const DashProfile = () => {
       setUpdateUserError("No changes made");
       return;
     }
-    if (imageFileUplodaing) {
+    if (imageFileUploading) {
       setUpdateUserError("Please wait for image to upload");
       return;
     }
@@ -116,6 +116,7 @@ const DashProfile = () => {
       if (!res.ok) {
         dispatch(updateFailure(data.message));
         setUpdateUserError(data.message);
+        return;
       } else {
         dispatch(updateSuccess(data));
         setUpdateUserSuccess("User's profile updated successfully");
@@ -128,13 +129,13 @@ const DashProfile = () => {
 
   const handleDeleteUser = async () => {
     setDeleteUserError(null)
-    setDeleteUserSuccess(null)
+    setDeleteSuccess(null)
     setUpdateUserError(null);
     setUpdateUserSuccess(null)
     setShowModal(false)
     try {
       dispatch(deleteUserStart());
-      const res = fetch(`api/user/delete/${currentUser._id}` , {
+      const res = await fetch(`api/user/delete/${currentUser._id}` , {
         method:'DELETE'
       })
       const data = await res.json();
@@ -142,10 +143,12 @@ const DashProfile = () => {
         dispatch(deleteUserFailure(data.message))
       }
       dispatch(deleteUserSuccess(data))
-      setDeleteUserSuccess('User deleted successfully')
+      setDeleteSuccess('User deleted successfully')
+      console.log('merhaba')
     } catch (error) {
       dispatch(deleteUserFailure(error.message))
       setDeleteUserError("User couldn't deleted")
+      console.log('merhaba sil')
     }
   }
 
@@ -233,9 +236,9 @@ const DashProfile = () => {
           {updateUserError}
         </Alert>
       )}
-      {deleteUserSuccess && (
+      {deleteSuccess && (
         <Alert color="success" className="mt-5">
-          {deleteUserSuccess}
+          {deleteSuccess}
         </Alert>
       )}
       {deleteUserError && (
