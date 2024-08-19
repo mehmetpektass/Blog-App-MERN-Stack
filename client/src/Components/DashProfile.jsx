@@ -23,7 +23,7 @@ import {
 } from "../redux/user/userSlice.js";
 
 const DashProfile = () => {
-  const { currentUser} = useSelector((state) => state.user);
+  const { currentUser , loading} = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploadProgress, setImageFileUploadProgress] = useState(null);
@@ -230,7 +230,7 @@ const DashProfile = () => {
           placeholder="************"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
+        <Button type="submit" gradientDuoTone="purpleToBlue" outline disabled={loading || imageFileUploading}>
           Update
         </Button>
       </form>
