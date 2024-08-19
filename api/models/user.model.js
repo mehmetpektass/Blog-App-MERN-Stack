@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       default:
         "https://via.placeholder.com/150",
     },
+    isAdmin: {
+      type:Boolean,
+      default:false
+    }
   },
   { timestamps: true }
 );
