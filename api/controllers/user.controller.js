@@ -34,11 +34,6 @@ export const updateUser = async (req, res ,next) => {
       );
     }
   }
-  else{
-    return next(
-      errorHandler(400, "Username cannot be empty. Please enter a username.")
-    )
-  }
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.userId,
