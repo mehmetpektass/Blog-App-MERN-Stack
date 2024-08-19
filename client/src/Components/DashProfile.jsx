@@ -30,7 +30,6 @@ const DashProfile = () => {
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
-  const [deleteSuccess , setDeleteSuccess] = useState(null);
   const [deleteUserError, setDeleteUserError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({});
@@ -90,8 +89,7 @@ const DashProfile = () => {
 
   const handleSubmit = async (e) => {
     setDeleteUserError(null)
-    setDeleteUserSuccess(null)
-    setUpdateUserSuccess(null);
+    setUpdateUserSuccess(null)
     setUpdateUserError(null);
     e.preventDefault();
     if (Object.keys(formData).length === 0) {
@@ -129,7 +127,6 @@ const DashProfile = () => {
 
   const handleDeleteUser = async () => {
     setDeleteUserError(null)
-    setDeleteSuccess(null)
     setUpdateUserError(null);
     setUpdateUserSuccess(null)
     setShowModal(false)
@@ -234,11 +231,6 @@ const DashProfile = () => {
       {updateUserError && (
         <Alert color="failure" className="mt-5">
           {updateUserError}
-        </Alert>
-      )}
-      {deleteSuccess && (
-        <Alert color="success" className="mt-5">
-          {deleteSuccess}
         </Alert>
       )}
       {deleteUserError && (
