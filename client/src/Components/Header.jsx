@@ -6,12 +6,30 @@ import { FaMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
 import { useSelector , useDispatch} from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice.js";
+import { signoutSuccess } from "../redux/user/userSlice.js";
 
 const Header = () => {
   const path = useLocation().pathname;
-  const disptch = useDispatch();
+  const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme)
+
+  const handleSignout = async () => {
+    const res = await fetch('/api/user/signout', {
+      method:'POST',
+    })
+    try {
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message)
+      }else{
+        dispatch(signoutSuccess())
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
     <Navbar className="border-b-2">
       <Link
@@ -35,7 +53,7 @@ const Header = () => {
         <RiSearchLine />
       </Button>
       <div className="flex gap-2 md:order-2">
-        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={() => disptch(toggleTheme())}>
+        <Button className="w-12 h-10 hidden sm:inline" color="gray" pill onClick={() => dispatch(toggleTheme())}>
           {theme === 'light' ? <FaMoon/> : <FiSun/>}
         </Button>
         {currentUser ? (
@@ -54,7 +72,7 @@ const Header = () => {
               <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
             <Dropdown.Divider/>
-            <Dropdown.Item>Sign Out</Dropdown.Item>
+            <Dropdown.Item onClick={handleSignout} >Sign Out</Dropdown.Item>
           </Dropdown>
         ) : (
           <Link to="/sign-in">
