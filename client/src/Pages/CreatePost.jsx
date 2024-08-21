@@ -55,10 +55,14 @@ const CreatePost = () => {
     }
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  }
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
-      <form className="flex flex-col gap-4">
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit} >
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <TextInput
             type="text"
@@ -66,8 +70,9 @@ const CreatePost = () => {
             required
             id="title"
             className="flex-1"
+            onChange={(e) => setFormData({...formData , title: e.target.value})}
           />
-          <Select>
+          <Select onChange={(e) => setFormData({...formData , category:e.target.value})}>
             <option value="uncategorized">Select a category</option>
             <option value="javascript">JavaScript</option>
             <option value="reactjs">React.js</option>
@@ -109,6 +114,7 @@ const CreatePost = () => {
           placeholder="Write something..."
           className="h-72 mb-12"
           required
+          onChange={(e) => setFormData({...formData , content: e.target.value})}
         />
         <Button type="submit" gradientDuoTone="purpleToPink" outline>
           Publish
