@@ -40,7 +40,7 @@ const CreatePost = () => {
           className="h-72 mb-12"
           required
         />
-        <Button type="submit" gradientDuoTone="purpleToPink">
+        <Button type="submit" gradientDuoTone="purpleToPink" outline>
           Publish
         </Button>
       </form>
