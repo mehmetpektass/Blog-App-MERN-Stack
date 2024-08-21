@@ -10,13 +10,16 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase.js";
 import { CircularProgressbar } from "react-circular-progressbar";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [uploadImageError, setUploadImageError] = useState(null);
   const [imageUploadProgress , setImageUploadProgress] = useState(null);
   const [formData , setFormData] = useState({});
-
+  const [submitPostError , setSubmitPostError] = useState(null)
+  const navigate = useNavigate();
+ 
   const handleUploadImage = async () => {
     try {
       if (!file) {
@@ -57,6 +60,25 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+        const res = await fetch('/api/post/create' , {
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify(formData),
+        })
+        const data = await res.json();
+        if (!res.ok) {
+            setSubmitPostError(data.message)
+            return
+        }else{
+            setSubmitPostError(null);
+            navigate(`/post/${data.slug}`)
+        }
+    } catch (error) {
+        setSubmitPostError('Something went wrong')
+    }
   }
 
   return (
@@ -114,11 +136,19 @@ const CreatePost = () => {
           placeholder="Write something..."
           className="h-72 mb-12"
           required
-          onChange={(e) => setFormData({...formData , content: e.target.value})}
+          onChange={(value) =>  setFormData({...formData , content:value})}
+          as='div'
         />
         <Button type="submit" gradientDuoTone="purpleToPink" outline>
           Publish
         </Button>
+        {
+            submitPostError && Alert(
+                <Alert color='failure'>
+                    {submitPostError}
+                </Alert>
+            )
+        }
       </form>
     </div>
   );
