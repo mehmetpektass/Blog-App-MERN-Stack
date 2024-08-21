@@ -29,7 +29,7 @@ export const signUp = async (req, res, next) => {
     await newUser.save();
     res.json("Sign Up Successful");
   } catch (error) {
-    next(error);
+    next(errorHandler(401 , 'Sign Up Faild'));
   }
 };
 
@@ -60,7 +60,7 @@ export const signIn = async (req, res, next) => {
       })
       .json(rest);
   } catch (error) {
-    next(error);
+    next(errorHandler(401,'Sign In Faild'));
   }
 };
 
@@ -104,6 +104,6 @@ export const google = async (req, res, next) => {
         .json(rest);
     }
   } catch (error) {
-    next(error);
+    next(errorHandler(401 , 'Google Outh Faild'));
   }
 };
