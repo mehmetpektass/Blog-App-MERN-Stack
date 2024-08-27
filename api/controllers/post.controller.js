@@ -22,18 +22,19 @@ export const create = async (req, res, next) => {
 
   try {
     const savedPost = await newPost.save();
-    res.status(201).json(savedPost);
+    res.status(200).json(savedPost);
   } catch (error) {
-    next(errorHandler("Post could'nt create"));
+    return next(errorHandler(400,"Post couldn't be created"));
   }
 };
 
 export const getPost = async (req, res, next) => {
+  let posts, totalPosts, lastMonthPosts;
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
-    const posts = await Post.find({
+    posts = await Post.find({
       ...(req.query.userId && { userId: req.query.userId }),
       ...(req.query.category && { category: req.query.category }),
       ...(req.query.slug && { slug: req.query.slug }),
@@ -49,7 +50,7 @@ export const getPost = async (req, res, next) => {
       .skip(startIndex)
       .limit(limit);
 
-    const totalPosts = await Post.countDocuments();
+    totalPosts = await Post.countDocuments();
 
     const now = new Date();
 
@@ -59,7 +60,7 @@ export const getPost = async (req, res, next) => {
       now.getDate()
     );
 
-    const lastMonthPosts = await Post.countDocuments({
+    lastMonthPosts = await Post.countDocuments({
       createdAt: { $gte: oneMonthAgo },
     });
   } catch (error) {

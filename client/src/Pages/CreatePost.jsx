@@ -137,13 +137,13 @@ const CreatePost = () => {
           className="h-72 mb-12"
           required
           onChange={(value) =>  setFormData({...formData , content:value})}
-          as='div'
+          
         />
         <Button type="submit" gradientDuoTone="purpleToPink" outline>
           Publish
         </Button>
         {
-            submitPostError && Alert(
+            submitPostError && (
                 <Alert color='failure'>
                     {submitPostError}
                 </Alert>
