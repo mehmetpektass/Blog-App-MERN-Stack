@@ -5,8 +5,9 @@ import { Link } from "react-router-dom";
 
 export const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
-
   const [userPosts, setUserPosts] = useState([]);
+  const [showMore , setShowMore] = useState(true);
+  console.log(showMore)
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -15,6 +16,9 @@ export const DashPosts = () => {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
+          if (data.posts.length < 9) {
+            setShowMore(false);
+          }
         }
       } catch (error) {
         console.log(error);
@@ -84,6 +88,13 @@ export const DashPosts = () => {
       ) : (
         <p>You have no posts yet!</p>
       )}
+      {
+        showMore && (
+          <button className="w-full text-teal-400 self-center text-sm py-7">
+            Show More
+          </button>
+        )
+      }
     </div>
   );
 };

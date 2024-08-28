@@ -96,10 +96,10 @@ const CreatePost = () => {
           />
           <Select onChange={(e) => setFormData({...formData , category:e.target.value})}>
             <option value="uncategorized">Select a category</option>
-            <option value="javascript">Web Development</option>
-            <option value="reactjs">Health & Wellness</option>
-            <option value="nextjs">Technology Trends</option>
-            <option value="nextjs">Travel & Adventure</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Health & Wellness">Health & Wellness</option>
+            <option value="Technology Trends">Technology Trends</option>
+            <option value="Travel & Adventure">Travel & Adventure</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
