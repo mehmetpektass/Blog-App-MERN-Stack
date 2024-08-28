@@ -37,9 +37,12 @@ export const DashPosts = () => {
             <Table.HeadCell>Delete</Table.HeadCell>
             <Table.HeadCell>Edit</Table.HeadCell>
           </Table.Head>
-          {userPosts.map((post) => (
-            <Table.Body className="divide-y">
-              <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-100" key={post._id}>
+          <Table.Body className="divide-y">
+            {userPosts.map((post) => (
+              <Table.Row
+                className="bg-white dark:border-gray-700 dark:bg-gray-800 hover:bg-gray-100"
+                key={post._id}
+              >
                 <Table.Cell>
                   {new Date(post.updatedAt).toLocaleDateString()}
                 </Table.Cell>
@@ -48,7 +51,7 @@ export const DashPosts = () => {
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-20 h-10 object-cover bg-gray-500"
+                      className="w-32 h-16 object-cover bg-gray-500"
                     />
                   </Link>
                 </Table.Cell>
@@ -75,8 +78,8 @@ export const DashPosts = () => {
                   </Link>
                 </Table.Cell>
               </Table.Row>
-            </Table.Body>
-          ))}
+            ))}
+          </Table.Body>
         </Table>
       ) : (
         <p>You have no posts yet!</p>
