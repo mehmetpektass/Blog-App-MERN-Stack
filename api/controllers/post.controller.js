@@ -67,12 +67,9 @@ export const getPost = async (req, res, next) => {
     next(error);
   }
 
-  const mehmet="mehmet"
-
   res.status(200).json({
     posts,
     totalPosts,
     lastMonthPosts,
-    mehmet,
   });
 };

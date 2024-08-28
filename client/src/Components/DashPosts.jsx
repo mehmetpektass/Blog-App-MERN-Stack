@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [userPosts, setUserPosts] = useState([]);
-  const [showMore , setShowMore] = useState(true);
+  const [showMore , setShowMore] = useState(false);
   console.log(showMore)
 
   useEffect(() => {
@@ -16,8 +16,8 @@ export const DashPosts = () => {
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
-          if (data.posts.length < 9) {
-            setShowMore(false);
+          if (data.posts.length >= 9) {
+            setShowMore(true);
           }
         }
       } catch (error) {
@@ -28,6 +28,18 @@ export const DashPosts = () => {
       fetchPosts();
     }
   }, [currentUser._id]);
+
+  const handleShowMore = async () => {
+    const startIndex = userPosts.length;
+    const res = await fetch(`/api/post/getPost?userId=${currentUser._id}&startIndex=${startIndex}`);
+    const data = await res.json();
+    if(res.ok){
+      setUserPosts((prev) => [...prev , ...data.posts])
+      if (data.posts.length < 9) {
+        setShowMore(false);
+      }
+    }
+  }
 
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -90,7 +102,7 @@ export const DashPosts = () => {
       )}
       {
         showMore && (
-          <button className="w-full text-teal-400 self-center text-sm py-7">
+          <button onClick={handleShowMore} className="w-full text-teal-400 self-center text-sm py-7">
             Show More
           </button>
         )
