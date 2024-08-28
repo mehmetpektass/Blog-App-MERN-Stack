@@ -24,7 +24,7 @@ export const create = async (req, res, next) => {
     const savedPost = await newPost.save();
     res.status(200).json(savedPost);
   } catch (error) {
-    return next(errorHandler(400,"Post couldn't be created"));
+    return next(errorHandler(400, "Post couldn't be created"));
   }
 };
 
@@ -66,5 +66,13 @@ export const getPost = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-  res.status(200).json(posts, totalPosts, lastMonthPosts);
+
+  const mehmet="mehmet"
+
+  res.status(200).json({
+    posts,
+    totalPosts,
+    lastMonthPosts,
+    mehmet,
+  });
 };
