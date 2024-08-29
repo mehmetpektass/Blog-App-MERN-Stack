@@ -122,7 +122,7 @@ export const DashPosts = () => {
                 <Table.Cell>
                   <Link
                     className="text-teal-400 hover:underline cursor-pointer"
-                    to={`/updatePost/${post.slug}`}
+                    to={`/update-post/${post._id}`}
                   >
                     <p>Edit</p>
                   </Link>
