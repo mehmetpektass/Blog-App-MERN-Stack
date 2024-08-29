@@ -6,6 +6,6 @@ const postRouter = express.Router();
 
 postRouter.post('/create' , verifyUser, create);
 postRouter.get('/getPost' , getPost)
-postRouter.delete('/deletePost' , verifyUser , deletePost)
+postRouter.delete('/deletePost/:postId/:userId' , verifyUser , deletePost)
 
 export default postRouter;
