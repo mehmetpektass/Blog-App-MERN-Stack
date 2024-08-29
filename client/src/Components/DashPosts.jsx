@@ -1,8 +1,8 @@
-import { Modal, Table ,Button} from "flowbite-react";
+import { Modal, Table, Button } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
 export const DashPosts = () => {
   const { currentUser } = useSelector((state) => state.user);
@@ -10,8 +10,6 @@ export const DashPosts = () => {
   const [showMore, setShowMore] = useState(false);
   const [showModal, setShowModal] = useState(null);
   const [postIdToDelete, setPostIdToDelete] = useState("");
-  
-  
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -50,41 +48,26 @@ export const DashPosts = () => {
   const handleDeletePost = async () => {
     setShowModal(false);
 
-
-
-    // const res = await fetch(`/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,{
-    //       method:'DELETE',
-    //    });
-  
-    //     const data = await res.json();
-    //     console.log(data)
-    //      if (!res.ok) {
-    //        console.log(data.message);
-    //     }else{
-    //        setUserPosts((prev) => {
-    //          prev.filter((post) => post._id !== postIdToDelete)
-    //       })
-    //      }
-
-    
     try {
-      const res = await fetch(`/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,{
-        method:'DELETE',
-      });
+      const res = await fetch(
+        `/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,
+        {
+          method: "DELETE",
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
-      }else{
-        setUserPosts((prev) => 
+      } else {
+        setUserPosts((prev) =>
           prev.filter((post) => post._id !== postIdToDelete)
-        )
+        );
       }
-
     } catch (error) {
-      console.error(error.message)
+      console.error(error.message);
     }
-  }
+  };
 
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
@@ -133,7 +116,7 @@ export const DashPosts = () => {
                     }}
                     className="font-medium text-red-500 hover:underline cursor-pointer"
                   >
-                    Delete 
+                    Delete
                   </p>
                 </Table.Cell>
                 <Table.Cell>
@@ -179,7 +162,6 @@ export const DashPosts = () => {
               <Button color="gray" onClick={() => setShowModal(false)}>
                 No, cancel
               </Button>
-              
             </div>
           </div>
         </Modal.Body>
