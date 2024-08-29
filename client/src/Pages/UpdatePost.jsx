@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
@@ -10,7 +10,9 @@ import {
 } from "firebase/storage";
 import { app } from "../firebase.js";
 import { CircularProgressbar } from "react-circular-progressbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useParams} from "react-router-dom";
+
+
 
 const UpdatePost = () => {
   const [file, setFile] = useState(null);
@@ -19,6 +21,28 @@ const UpdatePost = () => {
   const [formData , setFormData] = useState({});
   const [submitPostError , setSubmitPostError] = useState(null)
   const navigate = useNavigate();
+  const { postId } = useParams();
+  
+  useEffect(() => {
+    const fetchPost = async () => {
+        try {
+            const res = await fetch(`/api/post/getPost?postId=${postId}`)
+            const data = await res.json();
+            if (!res.ok) {
+                console.error(data.message)
+                setSubmitPostError(data.message)
+                return;
+            }else{
+                setSubmitPostError(null);
+                setFormData(data.posts[0])
+            }
+        } catch (error) {
+            console.error(error.message);
+            setSubmitPostError(data.message)
+        }
+    }
+    fetchPost();
+  },[postId])
  
   const handleUploadImage = async () => {
     try {
@@ -93,8 +117,9 @@ const UpdatePost = () => {
             id="title"
             className="flex-1"
             onChange={(e) => setFormData({...formData , title: e.target.value})}
+            value={formData.title}
           />
-          <Select onChange={(e) => setFormData({...formData , category:e.target.value})}>
+          <Select value={formData.category} onChange={(e) => setFormData({...formData , category:e.target.value})}>
             <option value="uncategorized">Select a category</option>
             <option value="Web Development">Web Development</option>
             <option value="Health & Wellness">Health & Wellness</option>
@@ -137,6 +162,7 @@ const UpdatePost = () => {
           placeholder="Write something..."
           className="h-72 mb-12"
           required
+          value={formData.content}
           onChange={(value) =>  setFormData({...formData , content:value})}
           
         />
