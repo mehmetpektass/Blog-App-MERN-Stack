@@ -35,7 +35,7 @@ export const DashUsers = () => {
   const handleShowMore = async () => {
     const startIndex = fetchedUsers.length;
     const res = await fetch(
-      `/api/user/getusers?userId=${currentUser._id}&startIndex=${startIndex}`
+      `/api/user/getusers?startIndex=${startIndex}`
     );
     const data = await res.json();
     if (res.ok) {
