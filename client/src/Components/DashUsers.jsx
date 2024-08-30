@@ -12,6 +12,7 @@ export const DashUsers = () => {
   const [showModal, setShowModal] = useState(null);
   const [userIdToDelete, setUserIdToDelete] = useState("");
 
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -34,6 +35,7 @@ export const DashUsers = () => {
 
   const handleShowMore = async () => {
     const startIndex = fetchedUsers.length;
+     console.log(startIndex)
     const res = await fetch(
       `/api/user/getusers?startIndex=${startIndex}`
     );
@@ -46,33 +48,30 @@ export const DashUsers = () => {
     }
   };
 
-  //   const handleDeletePost = async () => {
-  //     setShowModal(false);
-
-  //     try {
-  //       const res = await fetch(
-  //         `/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,
-  //         {
-  //           method: "DELETE",
-  //         }
-  //       );
-
-  //       const data = await res.json();
-  //       if (!res.ok) {
-  //         console.log(data.message);
-  //       } else {
-  //         setUserPosts((prev) =>
-  //           prev.filter((post) => post._id !== postIdToDelete)
-  //         );
-  //       }
-  //     } catch (error) {
-  //       console.error(error.message);
-  //     }
-  //   };
+  const handleDeleteUser = async () => {
+    try {
+        const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
+            method:'DELETE',
+        });
+        const data = await res.json();
+        if (!res.ok) {
+            console.log(data.message)
+            return;
+        } else{
+            setFetchedUsers((prev) => {
+                return prev.filter((user) => user._id !== userIdToDelete)
+            })
+            setShowModal(false);
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+  }
 
   return (
     <div className="table-auto overflow-x-scroll md:mx-auto p-3 scrollbar scrollbar-track-slate-100 scrollbar-thumb-slate-300 dark:scrollbar-track-slate-700 dark:scrollbar-thumb-slate-500">
       {currentUser.isAdmin && fetchedUsers.length > 0 ? (
+      
         <Table>
           <Table.Head>
             <Table.HeadCell>Date Created</Table.HeadCell>
@@ -143,7 +142,7 @@ export const DashUsers = () => {
               Are you sure you want to delete this user?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure">Yes, I'm sure</Button>
+              <Button color="failure" onClick={handleDeleteUser} >Yes, I'm sure</Button>
               <Button color="gray" onClick={() => setShowModal(false)}>
                 No, cancel
               </Button>
