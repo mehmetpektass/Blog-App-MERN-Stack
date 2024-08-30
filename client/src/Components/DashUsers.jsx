@@ -95,7 +95,7 @@ export const DashUsers = () => {
                   <img
                     src={user.profilePicture}
                     alt={user.username}
-                    className="w-32 h-16 object-cover bg-gray-500"
+                    className="w-16 h-16 object-cover rounded-full"
                   />
                 </Table.Cell>
                 <Table.Cell>{user.username}</Table.Cell>
@@ -119,7 +119,7 @@ export const DashUsers = () => {
           </Table.Body>
         </Table>
       ) : (
-        <p>You have no posts yet!</p>
+        <p>There is no users yet!</p>
       )}
       {showMore && (
         <button
@@ -140,7 +140,7 @@ export const DashUsers = () => {
           <div className="text-center">
             <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
             <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
-              Are you sure you want to delete this post?
+              Are you sure you want to delete this user?
             </h3>
             <div className="flex justify-center gap-4">
               <Button color="failure">Yes, I'm sure</Button>
