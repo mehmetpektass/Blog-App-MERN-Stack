@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const userSchema = new mongoose.Schema(
   {
     username: {
@@ -19,12 +20,12 @@ const userSchema = new mongoose.Schema(
     profilePicture: {
       type: String,
       default:
-        "https://via.placeholder.com/150",
+        'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'
     },
     isAdmin: {
-      type:Boolean,
-      default:false
-    }
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

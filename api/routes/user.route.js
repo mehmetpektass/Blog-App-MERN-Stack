@@ -8,6 +8,6 @@ userRouter.get('/test' ,test)
 userRouter.put('/update/:userId' , verifyUser , updateUser)
 userRouter.delete('/delete/:userId' , verifyUser , deleteUser)
 userRouter.post('/signout' , signout)
-userRouter.get('getUsers' , verifyUser , getUsers)
+userRouter.get('/getusers' , verifyUser , getUsers)
 
 export default userRouter;

@@ -14,7 +14,7 @@ export const DashPosts = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await fetch(`/api/post/getPost?userId=${currentUser._id}`);
+        const res = await fetch(`/api/post/getpost?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
@@ -50,7 +50,7 @@ export const DashPosts = () => {
 
     try {
       const res = await fetch(
-        `/api/post/deletePost/${postIdToDelete}/${currentUser._id}`,
+        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
         }
