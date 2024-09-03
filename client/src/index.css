@@ -8,3 +8,150 @@ body{
 .ql-editor {
     font-size: 1.05rem;
 }
+
+
+/* Global styles for better typography and spacing */
+.post-content {
+    line-height: 1.8;
+    font-family: 'Merriweather', serif;
+    color: #333;
+  }
+  
+  /* Paragraph styling for better readability */
+  .post-content p {
+    margin-bottom: 1.25rem;
+    font-size: 1.1rem;
+    color: #555;
+  }
+  
+  /* Primary heading style */
+  .post-content h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    margin: 2rem 0;
+    color: #222;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 0.5rem;
+  }
+  
+  /* Secondary heading style */
+  .post-content h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    margin: 1.8rem 0;
+    color: #333;
+  }
+  
+  /* Subheading style */
+  .post-content h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 1.5rem 0;
+    color: #444;
+  }
+  
+  /* Link styling for better interaction */
+  .post-content a {
+    color: #1e90ff;
+    text-decoration: none;
+    border-bottom: 1px solid #1e90ff;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  
+  .post-content a:hover {
+    color: #1160ae;
+    border-color: #1160ae;
+  }
+  
+  /* Dark mode adjustments */
+  .dark .post-content p{
+    color: #ffffff;
+  }
+  
+  .dark .post-content h1,
+  .dark .post-content h2,
+  .dark .post-content h3 {
+    color: #eee;
+    border-color: #555;
+  }
+  
+  .dark .post-content a {
+    color: #1e90ff;
+    border-color: #1e90ff;
+  }
+  
+  .dark .post-content a:hover {
+    color: #02aab0;
+    border-color: #02aab0;
+  }
+  
+  /* Blockquote styling for emphasis */
+  .post-content blockquote {
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background-color: #f9f9f9;
+    border-left: 5px solid #1e90ff;
+    color: #333;
+    font-style: italic;
+  }
+  
+  .dark .post-content blockquote {
+    background-color: #333;
+    border-color: #ffa500;
+    color: #ccc;
+  }
+  
+  /* Image styling for responsiveness */
+  .post-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+  }
+  
+  /* List styling for clear separation */
+  .post-content ul,
+  .post-content ol {
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+  }
+  
+  .dark .post-content ul li,
+  .dark .post-content ol li {
+    margin-bottom: 0.75rem;
+    color: #cec6c6;
+  }
+
+  .post-content ul li,
+  .post-content ol li {
+    margin-bottom: 0.75rem;
+    color: #333;
+  }
+  
+  /* Code block styling */
+  .post-content pre {
+    background-color: #f5f5f5;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+  
+  .dark .post-content pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+  }
+  
+  /* Horizontal rule styling */
+  .post-content hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 2rem 0;
+  }
+  
+  .dark .post-content hr {
+    border-top-color: #444;
+  }
+  
