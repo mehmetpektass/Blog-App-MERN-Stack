@@ -24,7 +24,7 @@ const PostPage = () => {
         }
       } catch (error) {
         setError(error);
-       
+        setloading(false);
       }
     };
     fetchPost();
