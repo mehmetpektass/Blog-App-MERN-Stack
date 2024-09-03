@@ -11,7 +11,7 @@ const CallToAction = () => {
         <p className='text-gray-500 my-2'>
             Checkout these resources with myprojects
         </p>
-        <Button gradientDuoTone='purpleToPink' className='rounded-tl-xl rounded-bl-none'>
+        <Button gradientDuoTone='cyanToBlue' className='rounded-tl-xl rounded-bl-none' outline>
             <a href="https://github.com/mehmetpektass" target='_blank' rel='noopener noreferrer'>
                 For More Projects
             </a>

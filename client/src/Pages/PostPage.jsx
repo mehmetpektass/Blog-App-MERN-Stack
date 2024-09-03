@@ -2,6 +2,7 @@ import { Button, Spinner } from "flowbite-react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CallToAction from "../Components/CallToAction";
+import CommentSection from "../Components/CommentSection";
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setloading] = useState(false);
@@ -17,7 +18,6 @@ const PostPage = () => {
         if (!res.ok) {
           setloading(false);
           setError(true);
-
           return;
         } else {
           setPost(data.posts[0]);
@@ -46,28 +46,31 @@ const PostPage = () => {
       </h1>
       <Link
         to={`/search?category=${post && post.category}`}
-        className='self-center mt-5'
+        className="self-center mt-5"
       >
-        <Button color='gray' pill size='xs'>
+        <Button color="gray" pill size="xs">
           {post && post.category}
         </Button>
       </Link>
       <img
         src={post && post.image}
         alt={post && post.title}
-        className='mt-10 p-3 max-h-[600px] w-full object-cover'
+        className="mt-10 p-3 max-h-[600px] w-full object-cover"
       />
-      <div className='flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs'>
+      <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        <span className='italic'>
+        <span className="italic">
           {post && (post.content.length / 100).toFixed(0)} mins read
         </span>
       </div>
       <div
-        className='p-3 max-w-2xl mx-auto w-full post-content mb-20'
+        className="p-3 max-w-2xl mx-auto w-full post-content mb-16"
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
-      <CallToAction/>
+      <div className="max-w-4xl mx-auto w-full">
+        <CallToAction />
+      </div>
+      {post && <CommentSection postId={post._id} />}
     </main>
   );
 };
