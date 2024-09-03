@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Button, Textarea } from "flowbite-react";
+import { Alert, Button, Textarea } from "flowbite-react";
 
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
+  const [commentError , setCommentError] = useState(null);
 
   const handleSubmit = async (e) => {
     try {
@@ -22,10 +23,11 @@ const CommentSection = ({ postId }) => {
         })
         const data = await res.json();
         if (res.ok) {
-            setComment('')
+            setComment('');
+            setCommentError(null);
         }
     } catch (error) {
-        
+        setCommentError(error)
     }
   }
   return (
@@ -70,6 +72,13 @@ const CommentSection = ({ postId }) => {
               Submit
             </Button>
           </div>
+          {
+            commentError && (
+                <Alert className="failure">
+                    {commentError}
+                </Alert>
+            )
+          }
         </form>
       )}
     </div>
