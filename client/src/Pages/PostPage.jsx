@@ -64,7 +64,7 @@ const PostPage = () => {
         </span>
       </div>
       <div
-        className='p-3 max-w-2xl mx-auto w-full post-content'
+        className='p-3 max-w-2xl mx-auto w-full post-content mb-20'
         dangerouslySetInnerHTML={{ __html: post && post.content }}
       ></div>
       <CallToAction/>
