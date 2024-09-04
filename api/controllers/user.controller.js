@@ -91,7 +91,9 @@ export const getUsers = async (req, res, next) => {
     const limit = req.query.limit || 9;
     const sortDirection = req.query.order === "asc" ? 1 : -1;
 
-    const users = await User.find()
+    const users = await User.find({
+      ...(req.query._id && { _id: req.query._id }),
+    })
       .sort({ createdAt: sortDirection })
       .skip(startIndex)
       .limit(limit);
