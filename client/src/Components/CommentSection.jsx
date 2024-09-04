@@ -6,30 +6,34 @@ import { Alert, Button, Textarea } from "flowbite-react";
 const CommentSection = ({ postId }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState("");
-  const [commentError , setCommentError] = useState(null);
+  const [commentError, setCommentError] = useState(null);
 
   const handleSubmit = async (e) => {
     try {
-        e.preventDefault();
-        if (comment.length > 200) {
-            return;
-        }
-        const res = await fetch('/api/comment/create', {
-            method:'POST',
-            headers: {
-                'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify({content: comment, postId:postId, userId:currentUser._id})
-        })
-        const data = await res.json();
-        if (res.ok) {
-            setComment('');
-            setCommentError(null);
-        }
+      e.preventDefault();
+      if (comment.length > 200) {
+        return;
+      }
+      const res = await fetch("/api/comment/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: comment,
+          postId: postId,
+          userId: currentUser._id,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setComment("");
+        setCommentError(null);
+      }
     } catch (error) {
-        setCommentError(error)
+      setCommentError(error);
     }
-  }
+  };
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
       {currentUser ? (
@@ -56,7 +60,10 @@ const CommentSection = ({ postId }) => {
         </div>
       )}
       {currentUser && (
-        <form onSubmit={handleSubmit} className="border border-teal-300 rounded-md p-3">
+        <form
+          onSubmit={handleSubmit}
+          className="border border-teal-300 rounded-md p-3"
+        >
           <Textarea
             placeholder="Add a comment..."
             rows="3"
@@ -72,14 +79,9 @@ const CommentSection = ({ postId }) => {
               Submit
             </Button>
           </div>
-          {
-            commentError && (
-                <Alert className="failure">
-                    {commentError}
-                </Alert>
-            )
-          }
+          {commentError && <Alert className="failure">{commentError}</Alert>}
         </form>
+        
       )}
     </div>
   );
