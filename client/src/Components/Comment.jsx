@@ -32,7 +32,7 @@ const Comment = ({ comment }) => {
       <div className="flex-1">
         <div className="flex items-center gap-1">
           <p className="font-bold mr-1 text-xs truncate">@{user.username}</p>
-          <span className="text-gray-500 text-xs">{moment(comment.createdAt).fromNow()}</span>
+          <span className="text-gray-500 text-xs break-words whitespace-pre-wrap">{moment(comment.createdAt).fromNow()}</span>
         </div>
         <p className="text-gray-500 pb-2 mt-2">{comment.content}</p>
       </div>
