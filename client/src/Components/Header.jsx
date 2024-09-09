@@ -1,6 +1,6 @@
 import { Avatar, Button, Dropdown, Navbar, TextInput } from "flowbite-react";
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate} from "react-router-dom";
 import { RiSearchLine } from "react-icons/ri";
 import { FaMoon } from "react-icons/fa";
 import { FiSun } from "react-icons/fi";
@@ -13,6 +13,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme)
+  const navigate = useNavigate();
 
   const handleSignout = async () => {
     const res = await fetch('/api/user/signout', {
@@ -24,6 +25,7 @@ const Header = () => {
         console.log(data.message)
       }else{
         dispatch(signoutSuccess())
+        navigate('/sign-in')
       }
     } catch (error) {
       console.log(error.message)
