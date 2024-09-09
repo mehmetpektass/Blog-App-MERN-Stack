@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link ,useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Alert, Button, Textarea } from "flowbite-react";
 import Comment from "./Comment";
 
@@ -32,10 +32,10 @@ const CommentSection = ({ postId }) => {
       if (res.ok) {
         setComment("");
         setCommentError(null);
-        setComments([data, ...comments])
+        setComments([data, ...comments]);
       }
     } catch (error) {
-      setCommentError(error);
+      setCommentError(error.message);
     }
   };
 
@@ -57,31 +57,31 @@ const CommentSection = ({ postId }) => {
   const handleLike = async (commentId) => {
     try {
       if (!currentUser) {
-        navigate('/sign-in');
+        navigate("/sign-in");
         return;
       }
-      const res = await fetch(`/api/comment/likeComment/${commentId}`,{
-        method:'PUT',
-      })
-      
+      const res = await fetch(`/api/comment/likecomment/${commentId}`, {
+        method: "PUT",
+      });
+
       if (res.ok) {
         const data = await res.json();
-        setComments(comments.map((comment) => {
-          comment._id === commentId ? (
-            {
-              ...comment,
-              likes:data.likes,
-              numberOfLikes:data.numberOfLikes,
-            }
-          ) : ( comment)
-          
-        }))
+        setComments(
+          comments.map((comment) => 
+            comment._id === commentId
+              ? {
+                  ...comment,
+                  likes: data.likes,
+                  numberOfLikes: data.numberOfLikes,
+                }
+              : comment
+          )
+        );
       }
-
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
-  }
+  };
 
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
