@@ -9,7 +9,7 @@ const CallToAction = () => {
             Want to learn more about the projects?
         </h2>
         <p className='text-gray-500 my-2'>
-            Checkout these resources with myprojects
+            Checkout these resources with my projects
         </p>
         <Button gradientDuoTone='cyanToBlue' className='rounded-tl-xl rounded-bl-none' outline>
             <a href="https://github.com/mehmetpektass" target='_blank' rel='noopener noreferrer'>
