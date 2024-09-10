@@ -43,7 +43,7 @@ const Comment = ({ comment, onLike, onEdit }) => {
         <div className="flex items-center gap-1">
           <p className="font-bold mr-1 text-xs truncate">@{user.username}</p>
           <span className="text-gray-500 text-xs break-words whitespace-pre-wrap">
-            {moment(comment.createdAt).fromNow()}
+            {moment(comment.updatedAt).fromNow()}
           </span>
         </div>
         {isEditing ? (
@@ -59,11 +59,13 @@ const Comment = ({ comment, onLike, onEdit }) => {
                 type="button"
                 size="sm"
                 gradientDuoTone="purpleToBlue"
+                disabled={editedContent.length === 0}
               >
                 Save
               </Button>
               <Button
-                onClick={() => setIsEditing(false)}
+                onClick={() =>{ setIsEditing(false); setEditedContent(comment.content) }}
+                
                 type="button"
                 size="sm"
                 gradientDuoTone="purpleToBlue"

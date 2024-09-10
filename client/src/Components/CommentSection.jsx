@@ -11,6 +11,22 @@ const CommentSection = ({ postId }) => {
   const [comments, setComments] = useState([]);
   const navigate = useNavigate();
 
+  const getComments = async () => {
+    try {
+      const res = await fetch(`/api/comment/getpostcomments/${postId}`);
+      const data = await res.json();
+      if (res.ok) {
+        setComments(data);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getComments();
+  }, [postId]);
+
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
@@ -38,21 +54,6 @@ const CommentSection = ({ postId }) => {
       setCommentError(error.message);
     }
   };
-
-  useEffect(() => {
-    const getComments = async () => {
-      try {
-        const res = await fetch(`/api/comment/getpostcomments/${postId}`);
-        const data = await res.json();
-        if (res.ok) {
-          setComments(data);
-        }
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    getComments();
-  }, [postId]);
 
   const handleLike = async (commentId) => {
     try {
@@ -106,6 +107,7 @@ const CommentSection = ({ postId }) => {
               : comment
           )
         );
+        getComments();
       }
     } catch (error) {
       console.log(error.message);
