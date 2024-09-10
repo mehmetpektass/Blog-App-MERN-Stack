@@ -25,8 +25,8 @@ const Comment = ({ comment, onLike, onEdit }) => {
     fetchTheUser();
   }, [comment]);
 
-  const handleEdit = async () => {
-    await onEdit(comment._id, editedContent);
+  const handleEdit = () => {
+    onEdit(comment._id, editedContent);
     setIsEditing(false);
   };
 
