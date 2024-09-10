@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Button, Textarea } from "flowbite-react";
+import { Button, Modal, Textarea } from "flowbite-react";
+import { HiOutlineExclamationCircle } from "react-icons/hi";
 
-const Comment = ({ comment, onLike, onEdit }) => {
+const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
+  const [showModal, setShowModal] = useState(false);
+  const [deletedComment, setDeletedComment] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -64,8 +67,10 @@ const Comment = ({ comment, onLike, onEdit }) => {
                 Save
               </Button>
               <Button
-                onClick={() =>{ setIsEditing(false); setEditedContent(comment.content) }}
-                
+                onClick={() => {
+                  setIsEditing(false);
+                  setEditedContent(comment.content);
+                }}
                 type="button"
                 size="sm"
                 gradientDuoTone="purpleToBlue"
@@ -96,18 +101,60 @@ const Comment = ({ comment, onLike, onEdit }) => {
               </p>
               {currentUser &&
                 (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                  <Button
-                    type="button"
-                    onClick={() => setIsEditing(true)}
-                    className="text-gray-400 hover:text-blue-500"
-                  >
-                    Edit
-                  </Button>
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditing(true)}
+                      className="w-14 h-8 flex items-center justify-center px-2 py-1 rounded border border-gray-400 
+                                 text-gray-600 dark:text-gray-300 
+                                 bg-white dark:bg-gray-800
+                                 hover:text-blue-500 hover:bg-blue-100 dark:hover:bg-blue-700 dark:hover:text-white"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowModal(true);
+                        setDeletedComment(comment._id);
+                      }}
+                      className="w-14 h-8 flex items-center justify-center px-2 py-1 rounded border border-gray-400 
+                                text-gray-600 dark:text-gray-300 
+                                bg-white dark:bg-gray-800
+                                hover:bg-red-100 hover:text-red-500 dark:hover:bg-red-700"
+                    >
+                      Delete
+                    </button>
+                  </>
                 )}
             </div>
           </>
         )}
       </div>
+      <Modal
+        show={showModal}
+        onClose={() => setShowModal(false)}
+        popup
+        size="md"
+      >
+        <Modal.Header />
+        <Modal.Body>
+          <div className="text-center">
+            <HiOutlineExclamationCircle className="h-14 w-14 text-gray-400 dark:text-gray-200 mb-4 mx-auto" />
+            <h3 className="mb-5 text-lg text-gray-500 dark:text-gray-400">
+              Are you sure you want to delete this comment?
+            </h3>
+            <div className="flex justify-center gap-4">
+              <Button color="failure" onClick={() =>{ onDelete(deletedComment); setShowModal(false)}}>
+                Yes, I'm sure
+              </Button>
+              <Button color="gray" onClick={() => setShowModal(false)}>
+                No, cancel
+              </Button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
