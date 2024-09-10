@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { Button, Textarea } from "flowbite-react";
 
-const Comment = ({ comment, onLike }) => {
+const Comment = ({ comment, onLike, onEdit }) => {
   const [user, setUser] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
 
   useEffect(() => {
     const fetchTheUser = async () => {
@@ -22,6 +24,11 @@ const Comment = ({ comment, onLike }) => {
     };
     fetchTheUser();
   }, [comment]);
+
+  const handleEdit = async () => {
+    await onEdit(comment._id, editedContent);
+    setIsEditing(false);
+  };
 
   return (
     <div className="flex p-4 border-b dark:border-gray-600 text-sm">
@@ -39,24 +46,65 @@ const Comment = ({ comment, onLike }) => {
             {moment(comment.createdAt).fromNow()}
           </span>
         </div>
-        <p className="text-gray-500 pb-2 mt-2 ">{comment.content}</p>
-        <div className="flex items-center text-xs gap-2 pt-2 border-t dark:border-gray-700 max-w-fit">
-          <button
-            onClick={() => onLike(comment._id)}
-            className={`text-gray-400 hover:text-blue-500 ${
-              currentUser &&
-              comment.likes.includes(currentUser._id) &&
-              "!text-blue-500"
-            }`}
-          >
-            <FaThumbsUp className="text-sm" />
-          </button>
-          <p>
-            {comment.numberOfLikes > 0 &&
-              `${comment.numberOfLikes}
-              ${comment.numberOfLikes === 1 ? "Like" : "Likes"}`}
-          </p>
-        </div>
+        {isEditing ? (
+          <>
+            <Textarea
+              onChange={(e) => setEditedContent(e.target.value)}
+              className="mb-2 p-3 rounded-lg border-2 border-gray-300 focus:border-blue-500 focus:ring-blue-500 bg-gray-50 text-gray-700 placeholder-gray-400 shadow-sm"
+              value={editedContent}
+            />
+            <div className="flex justify-end gap-1 text-xs">
+              <Button
+                onClick={() => handleEdit()}
+                type="button"
+                size="sm"
+                gradientDuoTone="purpleToBlue"
+              >
+                Save
+              </Button>
+              <Button
+                onClick={() => setIsEditing(false)}
+                type="button"
+                size="sm"
+                gradientDuoTone="purpleToBlue"
+                outline
+              >
+                Cancel
+              </Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <p className="text-gray-500 pb-2 mt-2">{comment.content}</p>
+            <div className="flex items-center text-xs gap-2 pt-2 border-t dark:border-gray-700 max-w-fit">
+              <button
+                onClick={() => onLike(comment._id)}
+                className={`text-gray-400 hover:text-blue-500 ${
+                  currentUser &&
+                  comment.likes.includes(currentUser._id) &&
+                  "!text-blue-500"
+                }`}
+              >
+                <FaThumbsUp className="text-sm" />
+              </button>
+              <p>
+                {comment.numberOfLikes > 0 &&
+                  `${comment.numberOfLikes}
+                  ${comment.numberOfLikes === 1 ? "Like" : "Likes"}`}
+              </p>
+              {currentUser &&
+                (currentUser._id === comment.userId || currentUser.isAdmin) && (
+                  <Button
+                    type="button"
+                    onClick={() => setIsEditing(true)}
+                    className="text-gray-400 hover:text-blue-500"
+                  >
+                    Edit
+                  </Button>
+                )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

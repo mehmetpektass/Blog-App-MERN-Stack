@@ -7,6 +7,6 @@ const commentRouter = express.Router();
 commentRouter.post('/create' , verifyUser ,createComment);
 commentRouter.get('/getpostcomments/:postId' , getComments);
 commentRouter.put('/likecomment/:commentId', verifyUser , likeComment);
-commentRouter.put('editcomment/:commentId' , verifyUser , editComment)
+commentRouter.put('/editcomment/:commentId' , verifyUser , editComment)
 
 export default commentRouter;
