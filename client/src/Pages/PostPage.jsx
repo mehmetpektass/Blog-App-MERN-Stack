@@ -90,7 +90,7 @@ const PostPage = () => {
       {post && <CommentSection postId={post._id} />}
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5">Recent Articles</h1>
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {recentPosts &&
             recentPosts.map((post) => <PostCart key={post._id} post={post} />)}
         </div>
