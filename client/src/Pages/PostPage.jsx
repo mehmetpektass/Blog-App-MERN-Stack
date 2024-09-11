@@ -3,11 +3,13 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import CallToAction from "../Components/CallToAction";
 import CommentSection from "../Components/CommentSection";
+import PostCart from "../Components/PostCart";
 const PostPage = () => {
   const { postSlug } = useParams();
   const [loading, setloading] = useState(false);
   const [error, setError] = useState(false);
   const [post, setPost] = useState(null);
+  const [recentPosts, setRecentPosts] = useState();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -31,6 +33,21 @@ const PostPage = () => {
     };
     fetchPost();
   }, [postSlug]);
+
+  useEffect(() => {
+    const fetchedPosts = async () => {
+      try {
+        const res = await fetch('/api/post/getpost?limit=3');
+        if (res.ok) {
+          const data = await res.json();
+          setRecentPosts(data.posts);
+        }
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchedPosts();
+  }, []);
 
   if (loading)
     return (
@@ -71,6 +88,13 @@ const PostPage = () => {
         <CallToAction />
       </div>
       {post && <CommentSection postId={post._id} />}
+      <div className="flex flex-col justify-center items-center mb-5">
+        <h1 className="text-xl mt-5">Recent Articles</h1>
+        <div>
+          {recentPosts &&
+            recentPosts.map((post) => <PostCart key={post._id} post={post} />)}
+        </div>
+      </div>
     </main>
   );
 };
