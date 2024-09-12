@@ -100,7 +100,6 @@ export const DashComments = () => {
                         ? `${comment.content.slice(0, 100)}...`
                         : comment.content}
                     </span>
-                    {/* Tooltip */}
                     <div
                       className="absolute z-10 hidden group-hover:block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-100 tooltip dark:bg-gray-700"
                       role="tooltip"
