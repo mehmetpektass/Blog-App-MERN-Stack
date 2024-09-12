@@ -8,6 +8,7 @@ import {
 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 import { Button, Table } from "flowbite-react";
+import { FaArrowDownLong } from "react-icons/fa6";
 
 const DashMainComp = () => {
   const [users, setUsers] = useState([]);
@@ -81,7 +82,11 @@ const DashMainComp = () => {
           </div>
           <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
-              <HiArrowNarrowUp />
+              {lastMonthUsers > 0 ? (
+                <HiArrowNarrowUp className="text-green-500" />
+              ) : (
+                <FaArrowDownLong className="text-red-500" />
+              )}
               {lastMonthUsers}
             </span>
             <div className="text-gray-500">Last month</div>
@@ -99,7 +104,11 @@ const DashMainComp = () => {
           </div>
           <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
-              <HiArrowNarrowUp />
+              {lastMonthComments > 0 ? (
+                <HiArrowNarrowUp className="text-green-500" />
+              ) : (
+                <FaArrowDownLong className="text-red-500" />
+              )}
               {lastMonthComments}
             </span>
             <div className="text-gray-500">Last month</div>
@@ -115,7 +124,11 @@ const DashMainComp = () => {
           </div>
           <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
-              <HiArrowNarrowUp />
+              {lastMonthPosts > 0 ? (
+                <HiArrowNarrowUp className="text-green-500" />
+              ) : (
+                <FaArrowDownLong className="text-red-500" />
+              )}
               {lastMonthPosts}
             </span>
             <div className="text-gray-500">Last month</div>
