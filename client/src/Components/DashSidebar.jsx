@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice.js";
 import { FaUsersRectangle } from "react-icons/fa6";
+import { FaComment } from "react-icons/fa";
 
 const DashSidebar = () => {
   const location = useLocation();
@@ -50,6 +51,7 @@ const DashSidebar = () => {
               Profile
             </Sidebar.Item>
           </Link>
+
           {currentUser.isAdmin && (
             <div>
               <Link to="/dashboard?tab=users">
@@ -71,8 +73,18 @@ const DashSidebar = () => {
                   Posts
                 </Sidebar.Item>
               </Link>
+              <Link to="/dashboard?tab=comments">
+                <Sidebar.Item
+                  active={tab === "comments"}
+                  icon={FaComment}
+                  as="div"
+                >
+                  Comments
+                </Sidebar.Item>
+              </Link>
             </div>
           )}
+
           <Sidebar.Item icon={HiArrowSmRight} onClick={handleSignout}>
             Sign Out
           </Sidebar.Item>
