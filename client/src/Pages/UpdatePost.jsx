@@ -137,6 +137,16 @@ const UpdatePost = () => {
             <option value="Health & Wellness">Health & Wellness</option>
             <option value="Technology Trends">Technology Trends</option>
             <option value="Travel & Adventure">Travel & Adventure</option>
+            <option value="Artificial Intelligence">
+                Artificial Intelligence
+              </option>
+              <option value="Cybersecurity">Cybersecurity</option>
+              <option value="Blockchain Technology">
+                Blockchain Technology
+              </option>
+              <option value=" Remote Work-Digital Nomadism">
+                Remote Work-Digital Nomadism
+              </option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">

@@ -15,11 +15,11 @@ import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
   const [file, setFile] = useState(null);
   const [uploadImageError, setUploadImageError] = useState(null);
-  const [imageUploadProgress , setImageUploadProgress] = useState(null);
-  const [formData , setFormData] = useState({});
-  const [submitPostError , setSubmitPostError] = useState(null)
+  const [imageUploadProgress, setImageUploadProgress] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [submitPostError, setSubmitPostError] = useState(null);
   const navigate = useNavigate();
- 
+
   const handleUploadImage = async () => {
     try {
       if (!file) {
@@ -47,44 +47,44 @@ const CreatePost = () => {
           getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
             setImageUploadProgress(null);
             setImageUploadProgress(null);
-            setFormData({...formData , image:downloadURL})
+            setFormData({ ...formData, image: downloadURL });
           });
         }
       );
     } catch (error) {
-        console.log(error);
-        setImageUploadProgress(null);
-        setUploadImageError('Image Upload Faild')
+      console.log(error);
+      setImageUploadProgress(null);
+      setUploadImageError("Image Upload Faild");
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const res = await fetch('/api/post/create' , {
-            method:'POST',
-            headers:{
-                'Content-Type': 'application/json' 
-            },
-            body: JSON.stringify(formData),
-        })
-        const data = await res.json();
-        if (!res.ok) {
-            setSubmitPostError(data.message)
-            return
-        }else{
-            setSubmitPostError(null);
-            navigate(`/post/${data.slug}`)
-        }
+      const res = await fetch("/api/post/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setSubmitPostError(data.message);
+        return;
+      } else {
+        setSubmitPostError(null);
+        navigate(`/post/${data.slug}`);
+      }
     } catch (error) {
-        setSubmitPostError('Something went wrong')
+      setSubmitPostError("Something went wrong");
     }
-  }
+  };
 
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit} >
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
           <TextInput
             type="text"
@@ -92,14 +92,28 @@ const CreatePost = () => {
             required
             id="title"
             className="flex-1"
-            onChange={(e) => setFormData({...formData , title: e.target.value})}
+            onChange={(e) =>
+              setFormData({ ...formData, title: e.target.value })
+            }
           />
-          <Select onChange={(e) => setFormData({...formData , category:e.target.value})}>
+          <Select
+            onChange={(e) =>
+              setFormData({ ...formData, category: e.target.value })
+            }
+          >
             <option value="uncategorized">Select a category</option>
             <option value="Web Development">Web Development</option>
             <option value="Health & Wellness">Health & Wellness</option>
             <option value="Technology Trends">Technology Trends</option>
             <option value="Travel & Adventure">Travel & Adventure</option>
+            <option value="Artificial Intelligence">
+              Artificial Intelligence
+            </option>
+            <option value="Cybersecurity">Cybersecurity</option>
+            <option value="Blockchain Technology">Blockchain Technology</option>
+            <option value=" Remote Work-Digital Nomadism">
+              Remote Work-Digital Nomadism
+            </option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
@@ -117,39 +131,36 @@ const CreatePost = () => {
             disabled={imageUploadProgress}
           >
             {imageUploadProgress ? (
-                <div className='w-16 h-16'>
+              <div className="w-16 h-16">
                 <CircularProgressbar
                   value={imageUploadProgress}
                   text={`${imageUploadProgress || 0}%`}
                 />
               </div>
-            ) : ('Upload Image')}
+            ) : (
+              "Upload Image"
+            )}
           </Button>
         </div>
         {formData.image && (
-            <img src={formData.image} alt='Upload' className="w-44 h-44 rounded-full self-center" />
+          <img
+            src={formData.image}
+            alt="Upload"
+            className="w-44 h-44 rounded-full self-center"
+          />
         )}
-         {uploadImageError && (
-            <Alert color='failure' >{uploadImageError}</Alert>
-        )}
+        {uploadImageError && <Alert color="failure">{uploadImageError}</Alert>}
         <ReactQuill
           theme="snow"
           placeholder="Write something..."
           className="h-72 mb-12"
           required
-          onChange={(value) =>  setFormData({...formData , content:value})}
-          
+          onChange={(value) => setFormData({ ...formData, content: value })}
         />
         <Button type="submit" gradientDuoTone="purpleToPink" outline>
           Publish
         </Button>
-        {
-            submitPostError && (
-                <Alert color='failure'>
-                    {submitPostError}
-                </Alert>
-            )
-        }
+        {submitPostError && <Alert color="failure">{submitPostError}</Alert>}
       </form>
     </div>
   );
