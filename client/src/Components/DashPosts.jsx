@@ -43,6 +43,7 @@ export const DashPosts = () => {
         setShowMore(false);
       }
     }
+    setShowMore(false);
   };
 
   const handleDeletePost = async () => {

@@ -139,7 +139,7 @@ const DashMainComp = () => {
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
           <div className="flex justify-between  p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent Users</h1>
-            <Button outline gradientDuoTone="purpleToPink">
+            <Button outline gradientDuoTone="cyanToBlue">
               <Link to={"/dashboard?tab=users"}>See all</Link>
             </Button>
           </div>
@@ -168,7 +168,7 @@ const DashMainComp = () => {
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
           <div className="flex justify-between  p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent Comments</h1>
-            <Button outline gradientDuoTone="purpleToPink">
+            <Button outline gradientDuoTone="cyanToBlue">
               <Link to={"/dashboard?tab=comments"}>See all</Link>
             </Button>
           </div>
@@ -193,7 +193,7 @@ const DashMainComp = () => {
         <div className="flex flex-col w-full md:w-auto shadow-md p-2 rounded-md dark:bg-gray-800">
           <div className="flex justify-between p-3 text-sm font-semibold">
             <h1 className="text-center p-2">Recent Posts</h1>
-            <Button outline gradientDuoTone="purpleToPink">
+            <Button outline gradientDuoTone="cyanToBlue">
               <Link to={"/dashboard?tab=posts"}>See all</Link>
             </Button>
           </div>
