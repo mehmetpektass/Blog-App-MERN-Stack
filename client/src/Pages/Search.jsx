@@ -45,6 +45,8 @@ const Search = () => {
         setPosts(data.posts);
         if (data.posts.length >= 9) {
           setShowMore(true);
+        }else{
+          setShowMore(false);
         }
       }
     };
