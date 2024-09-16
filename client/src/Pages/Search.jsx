@@ -102,6 +102,7 @@ const Search = () => {
         setShowMore(false);
       }
     }
+    setShowMore(false);
   };
 
   return (
