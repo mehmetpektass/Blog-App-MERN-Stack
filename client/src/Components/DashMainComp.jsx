@@ -51,7 +51,7 @@ const DashMainComp = () => {
     };
     const fetchComments = async () => {
       try {
-        const res = await fetch("/api/comment/getallcomments?limit=5");
+        const res = await fetch("/api/comment/getallcomments?limit=7");
         const data = await res.json();
         if (res.ok) {
           setComments(data.comments);
@@ -124,7 +124,7 @@ const DashMainComp = () => {
           </div>
           <div className="flex gap-2 text-sm">
             <span className="text-green-500 flex items-center">
-              {lastMonthPosts > 0 ? (
+              {lastMonthPosts > -1 ? (
                 <HiArrowNarrowUp className="text-green-500" />
               ) : (
                 <FaArrowDownLong className="text-red-500" />
