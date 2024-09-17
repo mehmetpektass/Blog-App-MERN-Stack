@@ -1,7 +1,13 @@
 import { Footer } from "flowbite-react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { BsFacebook, BsInstagram, BsTwitter, BsGithub, BsLinkedin } from 'react-icons/bs';
+import {
+  BsFacebook,
+  BsInstagram,
+  BsTwitter,
+  BsGithub,
+  BsLinkedin,
+} from "react-icons/bs";
 
 const FooterCom = () => {
   return (
@@ -13,10 +19,17 @@ const FooterCom = () => {
               to="/"
               className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold dark:text-white"
             >
-              <span className="px-2 py-1 bg-gradient-to-r from-blue-500 via-red-400 to-pink-300 rounded-lg text-white">
-                Mehmet's
-              </span>
-              Blog
+              <div className="flex items-center space-x-1">
+                <span className="text-4xl font-bold text-gray-800 tracking-wide  dark:text-white">
+                  Innovate
+                </span>
+                <span className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-blue-600">
+                  &
+                </span>
+                <span className="text-4xl font-bold text-gray-800 tracking-wide  dark:text-white">
+                  Develop
+                </span>
+              </div>
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6">
