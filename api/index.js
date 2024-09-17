@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import cookieParser from "cookie-parser";
 import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
+import path from 'path';
 
 dotenv.config();
 
@@ -24,6 +25,8 @@ mongoose
     console.log(err);
   });
 
+  const __dirname = path.resolve();
+
 app.listen(port, () => {
   console.log(`Server is Runing on Port ${port}`);
 });
@@ -32,6 +35,13 @@ app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/post", postRouter);
 app.use("/api/comment", commentRouter);
+
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
