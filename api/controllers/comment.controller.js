@@ -90,7 +90,7 @@ export const editComment = async (req, res, next) => {
     if (!comment) {
       return next(errorHandler("404", "Comment not Found"));
     }
-    if (req.user._id !== comment.userId && !req.user.isAdmin) {
+    if (req.user.id !== comment.userId && !req.user.isAdmin) {
       return next(
         errorHandler(401, "You are not allowed to edit this comment")
       );
@@ -116,7 +116,7 @@ export const deleteComment = async (req, res, next) => {
     if (!comment) {
         return next(errorHandler("404", "Comment not Found"));
       }
-    if (req.user._id !== comment.userId && !req.user.isAdmin) {
+    if (req.user.id !== comment.userId && !req.user.isAdmin) {
       return next(
         errorHandler(401, "You are not allowed to delete this comment")
       );
