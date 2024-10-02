@@ -1,4 +1,4 @@
-# Blog App (MERN Stack)
+# Blog App (MERN Stack)📝
 
 ## Description
 Live Demo: <a href='https://blog-app-z42m.onrender.com/'> Check out the Blog App here!<a/>
